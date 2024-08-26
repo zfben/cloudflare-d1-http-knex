@@ -10,7 +10,7 @@ const connection = {
 it('SELECT 1+1', async () => {
   const db = createConnection(connection)
 
-  const sqlite3 = knex({ client: 'better-sqlite3', connection: { filename: ':memory:' } })
+  const sqlite3 = knex({ client: 'better-sqlite3', connection: { filename: ':memory:' }, useNullAsDefault: false })
 
   await expect(db.raw('SELECT 1+1')).resolves.toEqual(await sqlite3.raw('SELECT 1+1'))
 
@@ -34,7 +34,7 @@ it('insert, update, delete', async () => {
     t.string('name').primary()
   })
 
-  const sqlite3 = knex({ client: 'better-sqlite3', connection: { filename: ':memory:' } })
+  const sqlite3 = knex({ client: 'better-sqlite3', connection: { filename: ':memory:' }, useNullAsDefault: false })
   await sqlite3.schema.dropTableIfExists('test_users')
   await sqlite3.schema.createTable('test_users', t => {
     t.string('name').primary()

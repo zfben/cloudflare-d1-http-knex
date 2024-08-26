@@ -31,13 +31,11 @@ export class CloudflareD1HttpClient extends Client {
 
     this.config = config
 
-    this.pool = new Pool({ min: 1, max: 1, propagateCreateError: true, create: async (cb) => cb(null, {}), destroy: async (cb) => console.log('destroy') })
+    this.pool = new Pool({ min: 1, max: 1, propagateCreateError: true, create: async (cb) => cb(null, {}), destroy: async () => null })
   }
 
   async _query(connection, obj) {
     if (!obj.sql) throw new Error('The query is empty');
-
-    console.log('query', obj)
 
     const req = request({
       hostname: 'api.cloudflare.com',
@@ -59,7 +57,6 @@ export class CloudflareD1HttpClient extends Client {
         let data = ''
         res.on('data', (chunk) => data += chunk)
         res.on('end', () => {
-          console.log('data', data)
           try {
             const body = JSON.parse(data)
 

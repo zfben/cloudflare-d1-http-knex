@@ -7,13 +7,10 @@ jest.mock('node:https', () => ({
     let requestBody = ''
     return {
       end: jest.fn().mockImplementation((data) => {
-        console.log('end', data)
         requestBody = data
       }),
       on: jest.fn().mockImplementation((event, cb) => {
-        console.log('event', event, requestBody)
         if (event === 'response') {
-          let endCb
           cb({
             on: jest.fn().mockImplementation((event, cb) => {
               if (event === 'data') {
@@ -31,8 +28,6 @@ jest.mock('node:https', () => ({
                   } else
                     throw error
                 }
-
-                console.log('results', results, meta)
 
                 cb(JSON.stringify({
                   success: true,
