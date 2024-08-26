@@ -1,0 +1,49 @@
+{
+  "name": "cloudflare-d1-http-knex",
+  "description": "An npm package that query [Cloudflare's D1](https://developers.cloudflare.com/d1/) through [Query D1 Database API](https://developers.cloudflare.com/api/operations/cloudflare-d1-query-database-query) and [Knex](https://knexjs.org/).",
+  "keywords": [
+    "cloudflare",
+    "d1",
+    "knex",
+    "api"
+  ],
+  "version": "1.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/zfben/cloudflare-d1-http-knex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zfben/cloudflare-d1-http-knex.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zfben/cloudflare-d1-http-knex/issues"
+  },
+  "scripts": {
+    "test": "jest -w=1",
+    "build": "tsup-node src/index.ts"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@swc/jest": "*",
+    "@types/jest": "*",
+    "jest": "*",
+    "knex": "*",
+    "@types/better-sqlite3": "*",
+    "better-sqlite3": "*",
+    "typescript": "*",
+    "tsup": "*"
+  },
+  "peerDependencies": {
+    "knex": "*"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(t|j)sx?$": "@swc/jest"
+    },
+    "testRegex": "/*\\.test\\.tsx?$",
+    "setupFiles": [
+      "./src/__tests__/setup.ts"
+    ]
+  }
+}
