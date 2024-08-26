@@ -28,3 +28,7 @@ const connection = createConnection({
 
 const query = await connection('table_name').select('*');
 ```
+
+## Changelog
+
+See [CHANGELOG.md](./CHANGELOG.md).
