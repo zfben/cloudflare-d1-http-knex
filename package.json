@@ -7,7 +7,7 @@
     "knex",
     "api"
   ],
-  "version": "1.0.2",
+  "version": "1.0.3",
   "license": "MIT",
   "homepage": "https://github.com/zfben/cloudflare-d1-http-knex",
   "repository": {
