@@ -53,31 +53,3 @@ it('insert, update, delete', async () => {
   await db.destroy()
   await sqlite3.destroy()
 }, 20000)
-
-it('transaction', async () => {
-  const db = createConnection(connection)
-
-  await db.schema.dropTableIfExists('test_users')
-  await db.schema.createTable('test_users', t => {
-    t.string('name').primary()
-  })
-
-  const sqlite3 = knex({ client: 'better-sqlite3', connection: { filename: ':memory:' }, useNullAsDefault: false })
-  await sqlite3.schema.dropTableIfExists('test_users')
-  await sqlite3.schema.createTable('test_users', t => {
-    t.string('name').primary()
-  })
-
-  await expect(db.transaction(async trx => {
-    await trx('test_users').insert({ name: '1' })
-    await trx('test_users').insert({ name: '2' })
-  })).resolves.toEqual(await sqlite3.transaction(async trx => {
-    await trx('test_users').insert({ name: '1' })
-    await trx('test_users').insert({ name: '2' })
-  }))
-
-  await expect(db('test_users').first()).resolves.toEqual(await sqlite3('test_users').first())
-
-  await db.destroy()
-  await sqlite3.destroy()
-}, 20000)

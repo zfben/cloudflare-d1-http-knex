@@ -18,7 +18,8 @@
     "url": "https://github.com/zfben/cloudflare-d1-http-knex/issues"
   },
   "scripts": {
-    "test": "jest -w=1 --coverage --reporters=jest-junit",
+    "test": "jest",
+    "ci": "jest -w=1 --coverage --reporters=jest-junit",
     "build": "tsup-node src/index.ts"
   },
   "main": "dist/index.js",
