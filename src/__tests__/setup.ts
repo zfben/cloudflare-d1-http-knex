@@ -21,10 +21,10 @@ jest.mock('node:https', () => ({
                 let meta
 
                 try {
-                  results = prepare.all(req.params)
+                  results = prepare.all(req.params || [])
                 } catch (error) {
                   if (error.message.includes('Use run() instead')) {
-                    meta = prepare.run(req.params)
+                    meta = prepare.run(req.params || [])
                   } else
                     throw error
                 }
