@@ -40,13 +40,13 @@ it('insert, update, delete', async () => {
     t.string('name').primary()
   })
 
-  await expect(db('test_users').insert([{ name: '1' }, { name: '2' }])).resolves.toEqual(await sqlite3('test_users').insert([{ name: '1' }, { name: '2' }]))
+  await expect(db('test_users').insert([{ name: '1' }, { name: '2' }]).returning('*')).resolves.toEqual(await sqlite3('test_users').insert([{ name: '1' }, { name: '2' }]).returning('*'))
 
   await expect(db('test_users').first()).resolves.toEqual(await sqlite3('test_users').first())
 
-  await expect(db('test_users').update({ name: '3' }).where('name', '1')).resolves.toEqual(await sqlite3('test_users').update({ name: '3' }).where('name', '1'))
+  await expect(db('test_users').update({ name: '3' }).where('name', '1').returning('*')).resolves.toEqual(await sqlite3('test_users').update({ name: '3' }).where('name', '1').returning('*'))
 
-  await expect(db('test_users').delete().where('name', '2')).resolves.toEqual(await sqlite3('test_users').delete().where('name', '2'))
+  await expect(db('test_users').delete().where('name', '2').returning('*')).resolves.toEqual(await sqlite3('test_users').delete().where('name', '2').returning('*'))
 
   await expect(db('test_users').delete().where('name', '1')).resolves.toEqual(await sqlite3('test_users').delete().where('name', '1'))
 

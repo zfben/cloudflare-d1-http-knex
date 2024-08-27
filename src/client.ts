@@ -2,6 +2,8 @@ import k, { Client, type Knex } from 'knex'
 import { Pool } from 'tarn'
 import { request } from 'node:https'
 import TableCompiler from 'knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler'
+import QueryBuilder from 'knex/lib/dialects/sqlite3/query/sqlite-querybuilder'
+import QueryCompiler from 'knex/lib/dialects/sqlite3/query/sqlite-querycompiler'
 
 export type CloudflareD1HttpClientConfigConnection = {
   /** Cloudflare's account id */
@@ -73,12 +75,23 @@ export class CloudflareD1HttpClient extends Client {
                   resolve(body.result[0].results[0])
                   break
                 case 'insert':
+                  if (obj.returning) {
+                    resolve(body.result[0].results)
+                    break
+                  }
+
                   resolve([body.result[0].meta.changes])
                   break
                 case 'update':
+                  if (obj.returning) {
+                    resolve(body.result[0].results)
+                    break
+                  }
+
                   resolve(body.result[0].meta.changes)
                   break
                 case 'del':
+                case 'counter':
                   resolve(body.result[0].meta.changes)
                   break
                 default:
@@ -103,6 +116,14 @@ export class CloudflareD1HttpClient extends Client {
 
   tableCompiler() {
     return new TableCompiler(this, ...arguments);
+  }
+
+  queryBuilder() {
+    return new QueryBuilder(this);
+  }
+
+  queryCompiler() {
+    return new QueryCompiler(this, ...arguments);
   }
 }
 
