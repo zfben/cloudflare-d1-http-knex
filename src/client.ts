@@ -1,4 +1,4 @@
-import k, { Client, type Knex } from 'knex'
+import K, { type Knex } from 'knex'
 import { Pool } from 'tarn'
 import { request } from 'node:https'
 import TableCompiler from 'knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler'
@@ -18,7 +18,7 @@ export type CloudflareD1HttpClientConfig = Knex.Config & {
   connection: CloudflareD1HttpClientConfigConnection
 }
 
-export class CloudflareD1HttpClient extends Client {
+export class CloudflareD1HttpClient extends K.Client {
   declare readonly config: CloudflareD1HttpClientConfig
 
   constructor(config: CloudflareD1HttpClientConfig) {
@@ -142,5 +142,5 @@ export class CloudflareD1HttpClient extends Client {
  * ```
  */
 export function createConnection(connection: CloudflareD1HttpClientConfigConnection) {
-  return k({ client: CloudflareD1HttpClient, connection: connection as any })
+  return K({ client: CloudflareD1HttpClient, connection: connection as any })
 }
