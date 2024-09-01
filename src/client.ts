@@ -1,8 +1,5 @@
 import K, { type Knex } from 'knex'
-import { Pool } from 'tarn'
-import TableCompiler from 'knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler.js'
-import QueryBuilder from 'knex/lib/dialects/sqlite3/query/sqlite-querybuilder.js'
-import QueryCompiler from 'knex/lib/dialects/sqlite3/query/sqlite-querycompiler.js'
+import Client from 'knex/lib/dialects/sqlite3/index.js'
 import type { mockedFetch } from './mock'
 
 export type CloudflareD1HttpClientConfigConnection = {
@@ -20,10 +17,13 @@ export type CloudflareD1HttpClientConfig = Knex.Config & {
   connection: CloudflareD1HttpClientConfigConnection
 }
 
-export class CloudflareD1HttpClient extends K.Client {
+export class CloudflareD1HttpClient extends Client {
   declare readonly config: CloudflareD1HttpClientConfig
 
   constructor(config: CloudflareD1HttpClientConfig) {
+    ;(config.connection as any).filename = ':memory:'
+    config.useNullAsDefault = false
+
     super(config)
 
     if (!config.connection?.account_id) {
@@ -39,25 +39,25 @@ export class CloudflareD1HttpClient extends K.Client {
     }
 
     this.config = config
+  }
 
-    this.pool = new Pool({
-      min: 1,
-      max: 1,
-      propagateCreateError: true,
-      create: async cb => cb(null, {}),
-      destroy: async () => null,
-    })
+  _driver() {
+    return this
+  }
+
+  acquireRawConnection() {
+    return Promise.resolve(this)
   }
 
   async _query(_, obj) {
     if (!obj.sql) return Promise.reject(Error('The query is empty'))
 
-    if (obj.sql === 'BEGIN;')
-      return Promise.reject(
-        Error(
-          "D1 doesn't support transactions, see https://blog.cloudflare.com/whats-new-with-d1/"
-        )
+    if (['BEGIN;', 'COMMIT;', 'ROLLBACK;'].includes(obj.sql)) {
+      console.warn(
+        "[WARN] D1 doesn't support transactions, see https://blog.cloudflare.com/whats-new-with-d1/"
       )
+      return Promise.resolve()
+    }
 
     if (this.config.connection.mockedFetch)
       return this.config.connection
@@ -125,20 +125,6 @@ export class CloudflareD1HttpClient extends K.Client {
   async processResponse(res) {
     return res
   }
-
-  tableCompiler() {
-    // biome-ignore lint/style/noArguments: <explanation>
-    return new TableCompiler(this, ...arguments)
-  }
-
-  queryBuilder() {
-    return new QueryBuilder(this)
-  }
-
-  queryCompiler() {
-    // biome-ignore lint/style/noArguments: <explanation>
-    return new QueryCompiler(this, ...arguments)
-  }
 }
 
 /**
@@ -158,5 +144,8 @@ export class CloudflareD1HttpClient extends K.Client {
 export function createConnection(
   connection: CloudflareD1HttpClientConfigConnection
 ) {
-  return K({ client: CloudflareD1HttpClient, connection: connection as any })
+  return K({
+    client: CloudflareD1HttpClient as any,
+    connection: connection as any,
+  })
 }
