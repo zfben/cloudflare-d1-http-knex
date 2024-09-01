@@ -1,8 +1,8 @@
 import K, { type Knex } from 'knex'
 import { Pool } from 'tarn'
-import TableCompiler from 'knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler'
-import QueryBuilder from 'knex/lib/dialects/sqlite3/query/sqlite-querybuilder'
-import QueryCompiler from 'knex/lib/dialects/sqlite3/query/sqlite-querycompiler'
+import TableCompiler from 'knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler.js'
+import QueryBuilder from 'knex/lib/dialects/sqlite3/query/sqlite-querybuilder.js'
+import QueryCompiler from 'knex/lib/dialects/sqlite3/query/sqlite-querycompiler.js'
 import type { mockedFetch } from './mock'
 
 export type CloudflareD1HttpClientConfigConnection = {

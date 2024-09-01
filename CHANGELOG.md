@@ -4,7 +4,7 @@
 
 ## Stable
 
-[`v1.1.1 (2024-09-01)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.0.3...v1.1.1)
+[`v1.1.2 (2024-09-01)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.0.3...v1.1.2)
 
 - [Feature] Replaced `node:https` with `fetch`.
 - [Feature] Add `mockedFetch` to mocking connection in case.
