@@ -2,7 +2,7 @@
   "name": "cloudflare-d1-http-knex",
   "description": "An npm package that query [Cloudflare's D1](https://developers.cloudflare.com/d1/) through [Query D1 Database API](https://developers.cloudflare.com/api/operations/cloudflare-d1-query-database-query) and [Knex](https://knexjs.org/).",
   "keywords": ["cloudflare", "d1", "knex", "api"],
-  "version": "1.1.0",
+  "version": "1.1.1",
   "license": "MIT",
   "homepage": "https://github.com/zfben/cloudflare-d1-http-knex",
   "repository": {
