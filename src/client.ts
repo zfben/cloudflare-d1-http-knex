@@ -95,6 +95,8 @@ export class CloudflareD1HttpClient extends Client {
   async _processResponse(res, obj) {
     return res.json().then(body => {
       if (body.success) {
+        if (obj.output) return obj.output.call(null, body.result[0].results)
+
         switch (obj.method) {
           case 'first':
             return body.result[0].results[0]

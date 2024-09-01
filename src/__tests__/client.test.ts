@@ -104,6 +104,8 @@ it('migration', async () => {
   await db.schema.dropTableIfExists('knex_migrations')
   await db.schema.dropTableIfExists('knex_migrations_lock')
 
+  await expect(db.schema.hasTable('test_logs')).resolves.toEqual(false)
+
   await db.schema.createTable('knex_migrations', t => {
     t.increments('id').primary()
     t.string('name')

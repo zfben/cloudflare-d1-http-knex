@@ -7,9 +7,7 @@ async function run(cmd) {
 }
 
 async function publish() {
-  await run(
-    `npm publish --access public`
-  )
+  await run('npm publish --access public')
 
   await run(`git commit -am 'release ${version}'`)
 
