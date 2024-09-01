@@ -1,9 +1,5 @@
 {
-  "format": [
-    "esm",
-    "cjs"
-  ],
-  "clean": true,
+  "format": ["esm", "cjs"],
   "dts": true,
   "treeshake": true
 }

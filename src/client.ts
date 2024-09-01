@@ -3,6 +3,7 @@ import { Pool } from 'tarn'
 import TableCompiler from 'knex/lib/dialects/sqlite3/schema/sqlite-tablecompiler'
 import QueryBuilder from 'knex/lib/dialects/sqlite3/query/sqlite-querybuilder'
 import QueryCompiler from 'knex/lib/dialects/sqlite3/query/sqlite-querycompiler'
+import type { mockedFetch } from './mock'
 
 export type CloudflareD1HttpClientConfigConnection = {
   /** Cloudflare's account id */
@@ -12,15 +13,7 @@ export type CloudflareD1HttpClientConfigConnection = {
   /** Cloudflare's api key, from https://dash.cloudflare.com/profile/api-tokens */
   key: string
   /** Mock fetch function for testing */
-  mockedFetch?: (
-    url: string,
-    options: RequestInit
-  ) => Promise<{
-    json: () => Promise<{
-      success: boolean
-      result: { results: any; meta: any }[]
-    }>
-  }>
+  mockedFetch?: typeof mockedFetch
 }
 
 export type CloudflareD1HttpClientConfig = Knex.Config & {

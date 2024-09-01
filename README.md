@@ -36,7 +36,8 @@ const query = await connection('table_name').select('*');
 1. Install `better-sqlite3`: `npm install -D better-sqlite3`.
 2. Using in case:
 ```ts
-import { createConnection, mockedFetch } from 'cloudflare-d1-http-knex'
+import { createConnection } from 'cloudflare-d1-http-knex'
+import { mockedFetch } from 'cloudflare-d1-http-knex/mock'
 
 const db = createConnection({
   account_id: 'xxxx',

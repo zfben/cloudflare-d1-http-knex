@@ -1,6 +1,6 @@
-import Sqlite3 from 'better-sqlite3'
+import type { Database } from 'better-sqlite3'
 
-const db = new Sqlite3(':memory:')
+let db: Database
 
 /**
  * Mocked fetch function to simulate a database connection.
@@ -9,7 +9,8 @@ const db = new Sqlite3(':memory:')
  *
  * @example
  * ```ts
- * import { createConnection, mockedFetch } from 'cloudflare-d1-http-knex'
+ * import { createConnection } from 'cloudflare-d1-http-knex'
+ * import { mockedFetch } from 'cloudflare-d1-http-knex/mock'
  *
  * const connection = {
  *   account_id: 'xxxx',
@@ -23,8 +24,14 @@ const db = new Sqlite3(':memory:')
  * await db.raw('SELECT 1+1')
  * ```
  */
-export const mockedFetch = (_, options) =>
-  Promise.resolve({
+export const mockedFetch = (_, options) => {
+  if (!db) {
+    const Sqlite3 = require('better-sqlite3')
+
+    db = new Sqlite3(':memory:')
+  }
+
+  return Promise.resolve({
     json: () => {
       const req = JSON.parse(options.body)
       const prepare = db.prepare(req.sql)
@@ -51,3 +58,4 @@ export const mockedFetch = (_, options) =>
       })
     },
   })
+}
