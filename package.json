@@ -1,12 +1,7 @@
 {
   "name": "cloudflare-d1-http-knex",
   "description": "An npm package that query [Cloudflare's D1](https://developers.cloudflare.com/d1/) through [Query D1 Database API](https://developers.cloudflare.com/api/operations/cloudflare-d1-query-database-query) and [Knex](https://knexjs.org/).",
-  "keywords": [
-    "cloudflare",
-    "d1",
-    "knex",
-    "api"
-  ],
+  "keywords": ["cloudflare", "d1", "knex", "api"],
   "version": "1.0.3",
   "license": "MIT",
   "homepage": "https://github.com/zfben/cloudflare-d1-http-knex",
@@ -36,9 +31,7 @@
       }
     }
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "devDependencies": {
     "@swc/jest": "*",
     "@types/jest": "*",
@@ -48,7 +41,8 @@
     "@types/better-sqlite3": "*",
     "better-sqlite3": "*",
     "typescript": "*",
-    "tsup": "*"
+    "tsup": "*",
+    "@faasjs/lint": "*"
   },
   "peerDependencies": {
     "knex": "*"
@@ -57,9 +51,6 @@
     "transform": {
       "^.+\\.(t|j)sx?$": "@swc/jest"
     },
-    "testRegex": "/*\\.test\\.tsx?$",
-    "setupFiles": [
-      "./src/__tests__/setup.ts"
-    ]
+    "testRegex": "/*\\.test\\.tsx?$"
   }
 }

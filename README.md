@@ -31,6 +31,23 @@ const connection = createConnection({
 const query = await connection('table_name').select('*');
 ```
 
+## Mocking
+
+1. Install `better-sqlite3`: `npm install -D better-sqlite3`.
+2. Using in case:
+```ts
+import { createConnection, mockedFetch } from 'cloudflare-d1-http-knex'
+
+const db = createConnection({
+  account_id: 'xxxx',
+  database_id: 'xxxx',
+  key: 'xxxx',
+  mockedFetch, // Using mocked fetch, it won't connect to real D1 database.
+})
+
+await db.raw('SELECT 1+1')
+```
+
 ## Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md).
