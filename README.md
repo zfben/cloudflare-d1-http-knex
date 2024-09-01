@@ -49,6 +49,16 @@ const db = createConnection({
 await db.raw('SELECT 1+1')
 ```
 
+### Usage mockedFetch as Global in Jest
+
+You should add below codes to your jest setup files.
+
+```ts
+import { mockedFetch } from 'cloudflare-d1-http-knex/mock'
+
+global.fetch = jest.fn(mockedFetch)
+```
+
 ## Changelog
 
 See [CHANGELOG.md](./CHANGELOG.md).
