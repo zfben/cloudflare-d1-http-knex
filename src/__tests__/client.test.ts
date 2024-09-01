@@ -1,5 +1,5 @@
 import { createConnection } from '../client'
-import knex from 'knex'
+import knex, { type Knex } from 'knex'
 import { mockedFetch } from '../mock'
 
 const connection = {
@@ -90,3 +90,41 @@ it('insert, update, delete', async () => {
   await db.destroy()
   await sqlite3.destroy()
 }, 20000)
+
+it('migration', async () => {
+  const config: Knex.MigratorConfig = {
+    directory: `${__dirname}/migrations`,
+    extension: 'ts',
+    disableTransactions: true,
+  }
+
+  const db = createConnection(connection)
+
+  await db.schema.dropTableIfExists('test_logs')
+  await db.schema.dropTableIfExists('knex_migrations')
+  await db.schema.dropTableIfExists('knex_migrations_lock')
+
+  await db.schema.createTable('knex_migrations', t => {
+    t.increments('id').primary()
+    t.string('name')
+    t.integer('batch')
+    t.timestamp('migration_time')
+  })
+
+  await db.schema.createTable('knex_migrations_lock', t => {
+    t.integer('index')
+    t.integer('is_locked')
+  })
+
+  await db.migrate.up(config)
+
+  await expect(db('test_logs').first()).resolves.toEqual(undefined)
+
+  await db.migrate.down(config)
+
+  await expect(db('test_logs').first()).rejects.toMatchObject({
+    message: expect.stringContaining('no such table: test_logs'),
+  })
+
+  await db.destroy()
+})
