@@ -4,6 +4,11 @@
 
 ## Stable
 
+[`v1.2.0 (2024-09-16)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.1.4...v1.2.0)
+
+- [Feature] Export `CloudflareD1HttpClient` as default.
+- [Fix] Fix types.
+
 [`v1.1.4 (2024-09-01)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.0.3...v1.1.4)
 
 - [Feature] Replaced `node:https` with `fetch`.
