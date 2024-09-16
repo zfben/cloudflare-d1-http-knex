@@ -11,13 +11,13 @@ export type CloudflareD1HttpClientConfigConnection = {
   key: string
   /** Mock fetch function for testing */
   mockedFetch?: typeof mockedFetch
-}
+} & Knex.StaticConnectionConfig
 
 export type CloudflareD1HttpClientConfig = Knex.Config & {
   connection: CloudflareD1HttpClientConfigConnection
 }
 
-export class CloudflareD1HttpClient extends Client {
+export class CloudflareD1HttpClient extends (Client as unknown as typeof Knex.Client) {
   declare readonly config: CloudflareD1HttpClientConfig
 
   constructor(config: CloudflareD1HttpClientConfig) {
@@ -147,7 +147,7 @@ export function createConnection(
   connection: CloudflareD1HttpClientConfigConnection
 ) {
   return K({
-    client: CloudflareD1HttpClient as any,
-    connection: connection as any,
+    client: CloudflareD1HttpClient,
+    connection,
   })
 }
