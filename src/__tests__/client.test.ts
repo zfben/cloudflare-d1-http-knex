@@ -1,6 +1,6 @@
 import { createConnection } from '../client'
 import knex, { type Knex } from 'knex'
-import { mockedFetch } from '../mock'
+import { mockedFetch, MockedCloudflareD1HttpClient } from '../mock'
 
 const connection = {
   account_id: 'account_id',
@@ -8,6 +8,25 @@ const connection = {
   key: 'key',
   mockedFetch,
 }
+
+it('MockedCloudflareD1HttpClient', async () => {
+  const K = knex({
+    client: MockedCloudflareD1HttpClient,
+  })
+
+  const sqlite3 = knex({
+    client: 'better-sqlite3',
+    connection: { filename: ':memory:' },
+    useNullAsDefault: false,
+  })
+
+  await expect(K.raw('SELECT 1+1')).resolves.toEqual(
+    await sqlite3.raw('SELECT 1+1')
+  )
+
+  await K.destroy()
+  await sqlite3.destroy()
+})
 
 it('SELECT 1+1', async () => {
   const db = createConnection(connection)

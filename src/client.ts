@@ -26,16 +26,18 @@ export class CloudflareD1HttpClient extends (Client as unknown as typeof Knex.Cl
 
     super(config)
 
-    if (!config.connection?.account_id) {
-      throw Error('Missing required account_id')
-    }
+    if (!config.connection.mockedFetch) {
+      if (!config.connection?.account_id) {
+        throw Error('Missing required account_id')
+      }
 
-    if (!config.connection?.database_id) {
-      throw Error('Missing required database_id')
-    }
+      if (!config.connection?.database_id) {
+        throw Error('Missing required database_id')
+      }
 
-    if (!config.connection?.key) {
-      throw Error('Missing required key')
+      if (!config.connection?.key) {
+        throw Error('Missing required key')
+      }
     }
 
     this.config = config

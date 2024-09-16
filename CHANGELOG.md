@@ -4,9 +4,10 @@
 
 ## Stable
 
-[`v1.2.0 (2024-09-16)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.1.4...v1.2.0)
+[`v1.2.1 (2024-09-16)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.1.4...v1.2.1)
 
 - [Feature] Export `CloudflareD1HttpClient` as default.
+- [Feature] Add `MockedCloudflareD1HttpClient` to `cloudflare-d1-http-knex/mock` and export as default.
 - [Fix] Fix types.
 
 [`v1.1.4 (2024-09-01)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.0.3...v1.1.4)

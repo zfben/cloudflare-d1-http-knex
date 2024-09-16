@@ -1,4 +1,5 @@
 import type { Database } from 'better-sqlite3'
+import { CloudflareD1HttpClient } from './client'
 
 let db: Database
 
@@ -59,3 +60,13 @@ export const mockedFetch = (_, options) => {
     },
   })
 }
+
+export class MockedCloudflareD1HttpClient extends CloudflareD1HttpClient {
+  constructor() {
+    super({
+      connection: { account_id: '', database_id: '', key: '', mockedFetch },
+    })
+  }
+}
+
+export default MockedCloudflareD1HttpClient
