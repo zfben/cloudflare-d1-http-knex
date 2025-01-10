@@ -1,7 +1,7 @@
-import type { Database } from 'better-sqlite3'
-import { CloudflareD1HttpClient } from './client'
+import type { Database } from "better-sqlite3";
+import { CloudflareD1HttpClient } from "./client";
 
-let db: Database
+let db: Database;
 
 /**
  * Mocked fetch function to simulate a database connection.
@@ -26,47 +26,50 @@ let db: Database
  * ```
  */
 export const mockedFetch = (_, options) => {
-  if (!db) {
-    const Sqlite3 = require('better-sqlite3')
+	return Promise.resolve({
+		json: async () => {
+			if (!db) {
+				const Sqlite3 =
+					globalThis.require === undefined
+						? (await import("better-sqlite3")).default
+						: globalThis.require("better-sqlite3");
 
-    db = new Sqlite3(':memory:')
-  }
+				db = new Sqlite3(":memory:");
+			}
 
-  return Promise.resolve({
-    json: () => {
-      const req = JSON.parse(options.body)
-      const prepare = db.prepare(req.sql)
+			const req = JSON.parse(options.body);
+			const prepare = db.prepare(req.sql);
 
-      let results: any[]
-      let meta: any
+			let results: any[];
+			let meta: any;
 
-      try {
-        results = prepare.all(req.params || [])
-      } catch (error) {
-        if (error.message.includes('Use run() instead')) {
-          meta = prepare.run(req.params || [])
-        } else return Promise.reject(Error(error.message))
-      }
+			try {
+				results = prepare.all(req.params || []);
+			} catch (error) {
+				if (error.message.includes("Use run() instead")) {
+					meta = prepare.run(req.params || []);
+				} else return Promise.reject(Error(error.message));
+			}
 
-      return Promise.resolve({
-        success: true,
-        result: [
-          {
-            results,
-            meta,
-          },
-        ],
-      })
-    },
-  })
-}
+			return Promise.resolve({
+				success: true,
+				result: [
+					{
+						results,
+						meta,
+					},
+				],
+			});
+		},
+	});
+};
 
 export class MockedCloudflareD1HttpClient extends CloudflareD1HttpClient {
-  constructor() {
-    super({
-      connection: { account_id: '', database_id: '', key: '', mockedFetch },
-    })
-  }
+	constructor() {
+		super({
+			connection: { account_id: "", database_id: "", key: "", mockedFetch },
+		});
+	}
 }
 
-export default MockedCloudflareD1HttpClient
+export default MockedCloudflareD1HttpClient;

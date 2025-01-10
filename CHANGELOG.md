@@ -4,6 +4,10 @@
 
 ## Stable
 
+[`v1.3.0 (2025-01-10)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.2.1...v1.3.0)
+
+- [Feature] Using import syntax for esm runtime.
+
 [`v1.2.1 (2024-09-16)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.1.4...v1.2.1)
 
 - [Feature] Export `CloudflareD1HttpClient` as default.

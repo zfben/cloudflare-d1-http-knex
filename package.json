@@ -1,66 +1,66 @@
 {
-  "name": "cloudflare-d1-http-knex",
-  "description": "An npm package that query [Cloudflare's D1](https://developers.cloudflare.com/d1/) through [Query D1 Database API](https://developers.cloudflare.com/api/operations/cloudflare-d1-query-database-query) and [Knex](https://knexjs.org/).",
-  "keywords": ["cloudflare", "d1", "knex", "api"],
-  "version": "1.2.1",
-  "license": "MIT",
-  "homepage": "https://github.com/zfben/cloudflare-d1-http-knex",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zfben/cloudflare-d1-http-knex.git"
-  },
-  "bugs": {
-    "url": "https://github.com/zfben/cloudflare-d1-http-knex/issues"
-  },
-  "scripts": {
-    "test": "jest",
-    "ci": "jest -w=1 --coverage --reporters=jest-junit",
-    "build": "tsup-node src/index.ts src/mock.ts"
-  },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.mts",
-        "default": "./dist/index.mjs"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    },
-    "./mock": {
-      "import": {
-        "types": "./dist/mock.d.mts",
-        "default": "./dist/mock.mjs"
-      },
-      "require": {
-        "types": "./dist/mock.d.ts",
-        "default": "./dist/mock.js"
-      }
-    }
-  },
-  "files": ["dist"],
-  "devDependencies": {
-    "@swc/jest": "*",
-    "@types/jest": "*",
-    "jest": "*",
-    "jest-junit": "*",
-    "knex": "*",
-    "@types/better-sqlite3": "*",
-    "better-sqlite3": "*",
-    "typescript": "*",
-    "tsup": "*",
-    "@faasjs/lint": "*"
-  },
-  "peerDependencies": {
-    "knex": "*"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.(t|j)sx?$": "@swc/jest"
-    },
-    "testRegex": "/*\\.test\\.tsx?$"
-  }
+	"name": "cloudflare-d1-http-knex",
+	"description": "An npm package that query [Cloudflare's D1](https://developers.cloudflare.com/d1/) through [Query D1 Database API](https://developers.cloudflare.com/api/operations/cloudflare-d1-query-database-query) and [Knex](https://knexjs.org/).",
+	"keywords": ["cloudflare", "d1", "knex", "api"],
+	"version": "1.3.0",
+	"license": "MIT",
+	"homepage": "https://github.com/zfben/cloudflare-d1-http-knex",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/zfben/cloudflare-d1-http-knex.git"
+	},
+	"bugs": {
+		"url": "https://github.com/zfben/cloudflare-d1-http-knex/issues"
+	},
+	"scripts": {
+		"test": "jest",
+		"ci": "jest -w=1 --coverage --reporters=jest-junit",
+		"build": "tsup-node src/index.ts src/mock.ts"
+	},
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": {
+				"types": "./dist/index.d.mts",
+				"default": "./dist/index.mjs"
+			},
+			"require": {
+				"types": "./dist/index.d.ts",
+				"default": "./dist/index.js"
+			}
+		},
+		"./mock": {
+			"import": {
+				"types": "./dist/mock.d.mts",
+				"default": "./dist/mock.mjs"
+			},
+			"require": {
+				"types": "./dist/mock.d.ts",
+				"default": "./dist/mock.js"
+			}
+		}
+	},
+	"files": ["dist"],
+	"devDependencies": {
+		"@swc/jest": "*",
+		"@types/jest": "*",
+		"jest": "*",
+		"jest-junit": "*",
+		"knex": "*",
+		"@types/better-sqlite3": "*",
+		"better-sqlite3": "*",
+		"typescript": "*",
+		"tsup": "*",
+		"@faasjs/lint": "*"
+	},
+	"peerDependencies": {
+		"knex": "*"
+	},
+	"jest": {
+		"transform": {
+			"^.+\\.(t|j)sx?$": "@swc/jest"
+		},
+		"testRegex": "/*\\.test\\.tsx?$"
+	}
 }
