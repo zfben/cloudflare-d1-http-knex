@@ -117,6 +117,8 @@ export class CloudflareD1HttpClient extends (Client as unknown as typeof Knex.Cl
           case 'del':
           case 'counter':
             return body.result[0].meta.changes
+          case 'pluck':
+            return body.result[0].results.map(row => row[obj.pluck])
           default:
             return body.result[0].results
         }

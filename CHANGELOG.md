@@ -4,6 +4,10 @@
 
 ## Stable
 
+[`v1.3.1 (2025-01-20)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.2.1...v1.3.0)
+
+- [Fix] Fix `pluck` method.
+
 [`v1.3.0 (2025-01-10)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.2.1...v1.3.0)
 
 - [Feature] Using import syntax for esm runtime.

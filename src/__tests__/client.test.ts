@@ -87,6 +87,10 @@ it('insert, update, delete', async () => {
     await sqlite3('test_users').first()
   )
 
+  await expect(db('test_users').pluck('name')).resolves.toEqual(
+    await sqlite3('test_users').pluck('name')
+  )
+
   await expect(
     db('test_users').update({ name: '3' }).where('name', '1').returning('*')
   ).resolves.toEqual(
