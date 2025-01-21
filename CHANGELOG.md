@@ -4,7 +4,7 @@
 
 ## Stable
 
-[`v1.3.1 (2025-01-20)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.3.0...v1.3.1)
+[`v1.3.2 (2025-01-21)`](https://github.com/zfben/cloudflare-d1-http-knex/compare/v1.3.0...v1.3.2)
 
 - [Fix] Fix `pluck` method.
 
